@@ -37,6 +37,7 @@ namespace slib
 	SLIB_JNI_BEGIN_CLASS(JXgPush, "slib/xgpush/XgPush")
 		SLIB_JNI_STATIC_METHOD(start, "start", "(Landroid/app/Activity;)V");
 		SLIB_JNI_STATIC_METHOD(stop, "stop", "(Landroid/app/Activity;)V");
+		SLIB_JNI_STATIC_METHOD(setEnableDebug, "setEnableDebug", "(Landroid/app/Activity;Z)V");
 
 		SLIB_JNI_NATIVE(nativeOnDeviceToken, "nativeOnDeviceToken", "(Ljava/lang/String;)V", _priv_XgPush_nativeOnDeviceToken);
 		SLIB_JNI_NATIVE(nativeOnReceiveMessage, "nativeOnReceiveMessage", "(ZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V", _priv_XgPush_nativeOnReceiveMessage);
@@ -44,7 +45,7 @@ namespace slib
 
 	sl_bool _g_slib_xgpush_flag_started = sl_false;
 
-	void XgPush::start(sl_uint32 accessId, const String& _accessKey)
+	void XgPush::start()
 	{
 		jobject jactivity = Android::getCurrentActivity();
 		if (!jactivity) {
@@ -68,6 +69,15 @@ namespace slib
 		}
 		_g_slib_xgpush_flag_started = sl_false;
 		JXgPush::stop.call(sl_null, jactivity);
+	}
+
+	void XgPush::setEnableDebug(sl_bool flag)
+	{
+		jobject jactivity = Android::getCurrentActivity();
+		if (!jactivity) {
+			return;
+		}
+		JXgPush::setEnableDebug.call(sl_null, jactivity, flag);
 	}
 
 	void _priv_XgPush_nativeOnDeviceToken(JNIEnv* env, jobject _this, jstring _token)

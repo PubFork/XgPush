@@ -35,10 +35,22 @@
 namespace slib
 {
 
+	sl_uint32 _g_slib_xgpush_access_id = 0;
+	AtomicString _g_slib_xgpush_access_key;
 	SLibXGPush* _g_slib_xgpush_instance = nil;
 	sl_bool _g_slib_xgpush_flag_started = sl_false;
-
-	void XgPush::start(sl_uint32 accessId, const String& _accessKey)
+	
+	void XgPush::setAccessId_iOS(sl_uint32 accessId)
+	{
+		_g_slib_xgpush_access_id = accessId;
+	}
+	
+	void XgPush::setAccessKey_iOS(const String& accessKey)
+	{
+		_g_slib_xgpush_access_key = accessKey;
+	}
+	
+	void XgPush::start()
 	{
 		if (_g_slib_xgpush_instance == nil) {
 			_g_slib_xgpush_instance = [SLibXGPush new];
@@ -47,6 +59,14 @@ namespace slib
 			});
 		}
 		if (_g_slib_xgpush_flag_started) {
+			return;
+		}
+		sl_uint32 accessId = _g_slib_xgpush_access_id;
+		if (!accessId) {
+			return;
+		}
+		String _accessKey = _g_slib_xgpush_access_key;
+		if (_accessKey.isEmpty()) {
 			return;
 		}
 		_g_slib_xgpush_flag_started = sl_true;
@@ -63,6 +83,11 @@ namespace slib
 		[[XGPush defaultManager] stopXGNotification];
 	}
 
+	void XgPush::setEnableDebug(sl_bool flag)
+	{
+		[[XGPush defaultManager] setEnableDebug:(flag ? YES : NO)];
+	}
+	
 }
 
 @implementation SLibXGPush

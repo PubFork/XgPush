@@ -37,9 +37,15 @@ namespace slib
 	class XgPush
 	{
 	public:
-		static void start(sl_uint32 accessId, const String& accessKey);
+		static void setAccessId_iOS(sl_uint32 accessId);
+
+		static void setAccessKey_iOS(const String& accessKey);
+
+		static void start();
 		
 		static void stop();
+		
+		static void setEnableDebug(sl_bool flag);
 		
 		static Function<void(String)> getDeviceTokenCallback();
 		

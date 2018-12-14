@@ -24,6 +24,17 @@
 
 namespace slib
 {
+	
+#if !defined(SLIB_PLATFORM_IS_IOS)
+	void XgPush::setAccessId_iOS(sl_uint32 accessId)
+	{
+	}
+	
+	void XgPush::setAccessKey_iOS(const String& accessKey)
+	{
+	}
+#endif
+	
 	SLIB_STATIC_ZERO_INITIALIZED(AtomicFunction<void(String)>, _g_slib_xg_push_device_token_callback);
 
 	Function<void(String)> XgPush::getDeviceTokenCallback()

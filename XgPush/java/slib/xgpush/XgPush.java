@@ -31,7 +31,6 @@ import com.tencent.android.tpush.XGPushManager;
 public class XgPush {
 
 	public static void start(Activity activity) {
-		//XGPushConfig.enableDebug(activity, true);
 		XGPushConfig.getToken(activity);
 		XGPushManager.registerPush(activity, new XGIOperateCallback() {
 			@Override
@@ -48,6 +47,10 @@ public class XgPush {
 
 	public static void stop(Activity activity) {
 		XGPushManager.unregisterPush(activity);
+	}
+
+	public static void setEnableDebug(Activity activity, boolean flag) {
+		XGPushConfig.enableDebug(activity, flag);
 	}
 
 	private static native void nativeOnDeviceToken(String token);

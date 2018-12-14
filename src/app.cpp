@@ -60,11 +60,11 @@ void ExampleXgPushApp::onStart()
 		txtReceivedMessage->setText(message.content);
 	});
 	
-	XgPush::start(
-		2200320550, // ACCESS ID
-		"IJ771W8CH8CR" // ACCESS KEY
-	);
-	
+	XgPush::setEnableDebug(sl_true);
+	XgPush::setAccessId_iOS(2200320550);
+	XgPush::setAccessKey_iOS("IJ771W8CH8CR");
+	XgPush::start();
+
 	startBroadcast();
 }
 
