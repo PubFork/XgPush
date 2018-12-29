@@ -23,6 +23,7 @@
 #include "xg_push_service.h"
 
 #include <slib/network.h>
+#include <slib/crypto.h>
 
 namespace slib
 {
